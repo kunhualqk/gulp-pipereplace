@@ -1,0 +1,25 @@
+{
+	"name": "gulp-pipereplace",
+	"version": "0.0.1",
+	"description": "A string replace plugin for gulp ,can use pipe as replacement",
+	"main": "index.js",
+	"dependencies": {
+		"event-stream": "~3.0.18"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kunhualqk/gulp-pipereplace.git"
+	},
+	"keywords": [
+		"gulpplugin",
+		"replace"
+	],
+	"author": "K_Reverter <kunhualqk@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/kunhualqk/gulp-pipereplace/issues"
+	},
+	"engines": {
+		"node": ">=0.8"
+	}
+}
