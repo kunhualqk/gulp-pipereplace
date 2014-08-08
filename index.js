@@ -42,7 +42,7 @@ module.exports = {
 				match: /^[^$]+$/,
 				replacer: function (file) {
 					return function (content) {
-						return 'KISSY.add("' + nameGetter(file) + '",function(){return ' + content + '})'
+						return 'KISSY.add("' + nameGetter(file) + '",function(){return ' + content + '});'
 					}
 				}
 			}
@@ -54,7 +54,7 @@ module.exports = {
 				match: /^[^$]+$/,
 				replacer: function (file) {
 					return function (content) {
-						return 'KISSY.add("' + nameGetter(file) + '",function(S,D){return D.addStyleSheet((' + content + ')()) || null},{requires:["dom"]})'
+						return 'KISSY.add("' + nameGetter(file) + '",function(S,D){return D.addStyleSheet((' + content + ')()) || null},{requires:["dom"]});'
 					}
 				}
 			}
