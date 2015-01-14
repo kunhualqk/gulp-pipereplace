@@ -1,6 +1,6 @@
 {
 	"name": "gulp-pipereplace",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "A string replace plugin for gulp ,can use pipe as replacement",
 	"main": "index.js",
 	"dependencies": {

@@ -60,6 +60,52 @@ module.exports = {
 			}
 		]})
 	},
+	addSourceMapStyle: function (cfg) {
+		return this.replace({patterns: [
+			{
+				match: /^[^$]+$/,
+				replacer: function (file) {
+					return function (content) {
+						var list1 = [], list2 = [], list3 = [],listMap={};
+						content = content.replace(/\/\*#\s*sourceMappingURL=data:application\/json;base64,([^\s]+)\s*\*\//g, function (source, jsonBase64) {
+							var map = JSON.parse(new Buffer(jsonBase64, 'base64').toString());
+							var name = cfg.nameGetter(file.relative),
+								className = cfg.selectorGetter(name);
+							listMap[name]=1;
+							list1.push(name);
+							list2.push(className);
+							list3.push(className + ':before');
+							for (var i = map.sources.length - 1; i >= 0; i--) {
+								var relative = require("path").relative(cfg.rootDir, map.sources[i]);
+								if (/\.\./.test(relative)) {continue;}
+								name = cfg.nameGetter(relative);
+								if(listMap[name]){continue;}
+								listMap[name]=1;
+								className = cfg.selectorGetter(name);
+								list1.push(name);
+								list2.push(className);
+								list3.push(className + ':before');
+							}
+							return "";
+						});
+						return content + list2.join(",") + "{height:7px;}" + list3.join(",") + '{font-size:0;content:"' + list1.join(",") + '"}';
+					}
+				}
+			}
+		]})
+	},
+	toXtplJs:function(cfg){
+		return this.replace({patterns: [
+			{
+				match: /^[^$]+$/,
+				replacer: function (file) {
+					return function (content) {
+						return 'KISSY.add("' + cfg.nameGetter(file) + '",function(S,XTemplateRuntime){var module={};' + content + ';return function(data){module.instance=module.instance||new XTemplateRuntime(module.exports);return module.instance.render(data);};},{requires:["kg/xtemplate/' + cfg.xtplVersion + '/runtime"]});'
+					}
+				}
+			}
+		]})
+	},
 	prependPipe: function (replacer, spliter) {
 		return this.replace({patterns: [
 			{
