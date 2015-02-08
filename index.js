@@ -39,7 +39,7 @@ module.exports = {
 	toKissyJs: function (nameGetter) {
 		return this.replace({patterns: [
 			{
-				match: /^[^$]+$/,
+				match: /^[\s\S]+$/,
 				replacer: function (file) {
 					return function (content) {
 						return 'KISSY.add("' + nameGetter(file) + '",function(){return ' + content + '});'
@@ -51,7 +51,7 @@ module.exports = {
 	toKissyCss: function (nameGetter) {
 		return this.replace({patterns: [
 			{
-				match: /^[^$]+$/,
+				match: /^[\s\S]+$/,
 				replacer: function (file) {
 					return function (content) {
 						return 'KISSY.add("' + nameGetter(file) + '",function(S,D){return D.addStyleSheet((' + content + ')()) || null},{requires:["dom"]});'
@@ -63,7 +63,7 @@ module.exports = {
 	addSourceMapStyle: function (cfg) {
 		return this.replace({patterns: [
 			{
-				match: /^[^$]+$/,
+				match: /^[\s\S]+$/,
 				replacer: function (file) {
 					return function (content) {
 						var list1 = [], list2 = [], list3 = [],listMap={};
@@ -97,7 +97,7 @@ module.exports = {
 	toXtplJs:function(cfg){
 		return this.replace({patterns: [
 			{
-				match: /^[^$]+$/,
+				match: /^[\s\S]+$/,
 				replacer: function (file) {
 					return function (content) {
 						return 'KISSY.add("' + cfg.nameGetter(file) + '",function(S,XTemplateRuntime){var module={};' + content + ';return function(data){module.instance=module.instance||new XTemplateRuntime(module.exports);return module.instance.render(data);};},{requires:["kg/xtemplate/' + cfg.xtplVersion + '/runtime"]});'
